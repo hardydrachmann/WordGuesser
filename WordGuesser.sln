@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordGuesser Console", "Contracts - CompAssign Wordguesser\WordGuesser Console.csproj", "{803704FA-AB47-424E-AF80-F45D498D7760}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordGuesser Logic", "WordGuesser Logic\WordGuesser Logic.csproj", "{64B4933D-16CB-4A56-AB3E-196AF29FE5E9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{803704FA-AB47-424E-AF80-F45D498D7760}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{803704FA-AB47-424E-AF80-F45D498D7760}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{803704FA-AB47-424E-AF80-F45D498D7760}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{803704FA-AB47-424E-AF80-F45D498D7760}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64B4933D-16CB-4A56-AB3E-196AF29FE5E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64B4933D-16CB-4A56-AB3E-196AF29FE5E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64B4933D-16CB-4A56-AB3E-196AF29FE5E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64B4933D-16CB-4A56-AB3E-196AF29FE5E9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
