@@ -1,9 +1,8 @@
-﻿namespace Contracts___CompAssign_Wordguesser
+﻿
+class Program
 {
-    class Program
+    static void Main(string[] args)
     {
-        static void Main(string[] args)
-        {
-        }
+        WordGuesser w = new WordGuesser();
     }
 }
