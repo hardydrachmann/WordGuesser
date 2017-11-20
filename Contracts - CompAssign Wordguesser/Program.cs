@@ -1,8 +1,12 @@
 ﻿
-class Program
+namespace Contracts___CompAssign_Wordguesser
 {
-    static void Main(string[] args)
+    class Program
     {
-        WordGuesser w = new WordGuesser();
+        static void Main(string[] args)
+        {
+            WordGuesser w = new WordGuesser();
+            w.StartGame();
+        }
     }
 }
