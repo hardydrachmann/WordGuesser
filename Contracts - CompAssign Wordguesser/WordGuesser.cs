@@ -1,49 +1,82 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using WordGuesser_Logic;
 
 namespace Contracts___CompAssign_Wordguesser
 {
     public class WordGuesser
     {
-        private IGameLogic logic;
+        private IGuessLogic guessLogic;
+        private IWordLogic wordLogic;
 
-      
 
         public WordGuesser()
         {
-            logic = new WordLogicContract();
+            guessLogic = new MockGuessLogic();
+            wordLogic = new MockWordLogic();
         }
 
         public void StartGame()
         {
+            Console.BackgroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Black;
             Console.WriteLine("Welcome to Word Guesser <beta version>");
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.White;
             string input = "";
             do
             {
-                string word = logic.GetRandomWord();
+                string word = wordLogic.GetRandomWord();
                 playRound(word);
-                Console.WriteLine("\nenter 'q' to quit");
-                input = Console.ReadLine();
-            } while (!input.ToLower().StartsWith("q"));
+                Console.WriteLine("\nType 'q' to quit or press 'Enter' to play");
+                input = Console.ReadLine().ToLower();
+                Console.Clear();
+            } while (!input.StartsWith("q"));
         }
 
         private void playRound(string word)
         {
             string blanks = getBlanks(word);
-            Console.WriteLine("Enter word or character from word to guess: " + blanks + " " + word);
-            for (int i = 0; i < word.Length; i++)
+            Console.WriteLine("Enter word or character from word to guess: " + blanks + " " + word + "\n");
+            while (guessLogic.GetGuesses() > 0)
             {
-                string guess = Console.ReadLine();
-                bool correct = logic.Evaluate(guess);
+                Console.Write("> ");
+                string guess = Console.ReadLine().ToLower();
+                bool correct;
+                if(guess.Length > 1)
+                    correct = wordLogic.EvaluateWord(word, blanks, guess);
+                else 
+                    correct = wordLogic.EvaluateLetter(word, blanks, guess);
                 if (correct)
+                {
                     blanks = substituteLetters(word, blanks, guess);
+                    guessLogic.AddGuess();
+                    string guessProgress = blanks.Replace(" ", "");
+                    bool hasWon = wordLogic.EvaluateWord(word, blanks, guessProgress);
+                    if (hasWon)
+                    {
+                        Console.Clear();
+                        Console.WriteLine("You Won! " + blanks.Replace(" ", ""));
+                        break;
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        Console.Write("Correct!");
+                    }
+                }
                 else
                 {
-                    //TODO subtract life
+                    Console.Clear();
+                    Console.Write("Wrong!");
+                    guessLogic.RemoveGuess();
                 }
+                Console.WriteLine(" Guesses left: " + guessLogic.GetGuesses());
+                Console.WriteLine(blanks + "\n");
             }
+            guessLogic.ResetGuessCount();
         }
 
         private string substituteLetters(string word, string blanks, string guess)
@@ -52,7 +85,7 @@ namespace Contracts___CompAssign_Wordguesser
                 return word;
             else
             {
-               int[] matches = getIndicesOf(word, guess);
+                int[] matches = getIndicesOf(word, guess);
                 for (int i = 0; i < matches.Length; i++)
                 {
                     int index = matches[i] * 2;
@@ -60,7 +93,6 @@ namespace Contracts___CompAssign_Wordguesser
                     string secondHalf = blanks.Substring(index + 1, blanks.Length - index - 1);
                     blanks = firstHalf + guess + secondHalf;
                 }
-                Console.WriteLine(blanks);
             }
             return blanks;
         }
@@ -70,8 +102,8 @@ namespace Contracts___CompAssign_Wordguesser
             List<int> indices = new List<int>();
             for (int i = 0; i < value.Length; i++)
             {
-                string character = value[i].ToString().ToLower();
-                if(character == key)
+                string character = value[i].ToString();
+                if (character == key)
                     indices.Add(i);
             }
             return indices.ToArray();
@@ -83,6 +115,6 @@ namespace Contracts___CompAssign_Wordguesser
             for (int i = 0; i < word.Length; i++)
                 blanks += "_ ";
             return blanks;
-        } 
+        }
     }
 }
