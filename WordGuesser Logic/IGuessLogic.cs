@@ -35,21 +35,19 @@ namespace WordGuesser_Logic
         /* --- BASIC QUERY --- */
 
         
-        // Pre: 
-        // Post: 
+        // Post: Return value is greater or equals 0
         [Pure]
         public int GetGuessCount()
         {
             Contract.Ensures(Contract.Result<int>() >= 0);
             return default(int);
         }
-
-
+        
 
         /* --- COMMANDS --- */
-
         
-        // Pre: 
+
+        // Pre: GuessLimit > 0
         // Post: 
         public IGuessLogic Initialize(int guessLimit)
         {
@@ -58,27 +56,27 @@ namespace WordGuesser_Logic
             return default(IGuessLogic);
         }
         
-        // Pre:
-        // Post: 
+
+        // Post: Guess count has been incremented by 1
         public void IncrementGuessCount()
         {
             Contract.Ensures(GetGuessCount() == Contract.OldValue(GetGuessCount()) + 1);
         }
 
-        // Pre:
-        // Post:
+        // Pre: guess > 0
+        // Post: Guess count has been decremented by 1
         public void DecrementGuessCount()
         {
             Contract.Requires(GetGuessCount() > 0);
             Contract.Ensures(GetGuessCount() == Contract.OldValue(GetGuessCount()) - 1);
         }
-
-        // Pre:
-        // Post:
+        
+        // Post: Guess count are reset
         public void ResetGuessCount()
         {
             Contract.Ensures(GetGuessCount() > 0);
         }
+        
     }
 
 
