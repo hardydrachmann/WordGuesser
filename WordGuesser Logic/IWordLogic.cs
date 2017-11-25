@@ -11,8 +11,9 @@ namespace WordGuesser_Logic
     [ContractClass(typeof(WordLogicContract))]
     public interface IWordLogic
     {
+
         // Return random string of randomWords
-        string GetRandomWord();
+        string GetRandomWord(string[] words);
 
         // Return true if guess contain word and blanks doesn't contains guess
         bool EvaluateLetter(string word, string blanks, string guess);
@@ -28,11 +29,13 @@ namespace WordGuesser_Logic
         // Pre:
         // Post:
         [Pure]
-        public string GetRandomWord()
+        public string GetRandomWord(string[] words)
         {
+            Contract.Requires(words.Length > 1);
             Contract.Ensures(!string.IsNullOrWhiteSpace(Contract.Result<string>()));
             Contract.Ensures(Contract.Result<string>().Length > 1);
             Contract.Ensures(!Contract.Result<string>().Contains(" "));
+            Contract.Ensures(words.Contains(Contract.Result<string>()));
             return default(string);
         }
 
@@ -66,14 +69,13 @@ namespace WordGuesser_Logic
     // Implementation Class
     public class MockWordLogic : IWordLogic
     {
-        private readonly string[] randomWords = new string[] { "hest", "paris", "fasan", "ugle", "gun", "kaffe", "zorro", "hammer", "london", "radio" };
 
-        public string GetRandomWord()
+        public string GetRandomWord(string[] words)
         {
             Random rnd = new Random();
-            int index = rnd.Next(0, randomWords.Length);
+            int index = rnd.Next(0, words.Length);
 
-            return randomWords[index];
+            return words[index];
         }
 
         public bool EvaluateLetter(string word, string blanks, string guess)

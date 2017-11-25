@@ -10,8 +10,8 @@ namespace Contracts___CompAssign_Wordguesser
     {
         private IGuessLogic guessLogic;
         private IWordLogic wordLogic;
-        private int guesses = 5;
 
+        private readonly string[] words = new string[] { "hest", "paris", "fasan", "ugle", "gun", "kaffe", "zorro", "hammer", "london", "radio" };
 
         public WordGuesser()
         {
@@ -29,10 +29,10 @@ namespace Contracts___CompAssign_Wordguesser
             string input = "";
             do
             {
-                string word = wordLogic.GetRandomWord();
+                string word = wordLogic.GetRandomWord(words);
                 playRound(word);
                 Console.WriteLine("\nType 'q' to quit or press 'Enter' to play");
-                input = Console.ReadLine().ToLower();
+                input = Console.ReadLine()?.ToLower();
                 Console.Clear();
             } while (!input.StartsWith("q"));
         }
@@ -41,7 +41,7 @@ namespace Contracts___CompAssign_Wordguesser
         {
             string blanks = getBlanks(word);
             Console.WriteLine("Enter word or character from word to guess: " + blanks + " " + word + "\n");
-            while (guessLogic.GetGuesses() > 0)
+            while (guessLogic.GetGuessCount() > 0)
             {
                 Console.Write("> ");
                 string guess = Console.ReadLine().ToLower();
@@ -53,7 +53,7 @@ namespace Contracts___CompAssign_Wordguesser
                 if (correct)
                 {
                     blanks = substituteLetters(word, blanks, guess);
-                    guessLogic.AddGuess();
+                    guessLogic.PutGuess();
                     string guessProgress = blanks.Replace(" ", "");
                     bool hasWon = wordLogic.EvaluateWord(word, guessProgress);
                     if (hasWon)
@@ -74,7 +74,7 @@ namespace Contracts___CompAssign_Wordguesser
                     Console.Write("Wrong!");
                     guessLogic.RemoveGuess();
                 }
-                Console.WriteLine(" Guesses left: " + guessLogic.GetGuesses());
+                Console.WriteLine(" Guesses left: " + guessLogic.GetGuessCount());
                 Console.WriteLine(blanks + "\n");
             }
             guessLogic.ResetGuessCount();

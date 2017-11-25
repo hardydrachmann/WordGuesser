@@ -7,11 +7,12 @@ namespace WordGuesser_Logic
     [ContractClass(typeof(GuessLogicContract))]
     public interface IGuessLogic
     {
+
         // Return the number of guesses count
-        int GetGuesses();
+        int GetGuessCount();
 
         // Add guess
-        void AddGuess();
+        void PutGuess();
 
         // Remove guess
         void RemoveGuess();
@@ -24,10 +25,11 @@ namespace WordGuesser_Logic
     [ContractClassFor(typeof(IGuessLogic))]
     internal abstract class GuessLogicContract : IGuessLogic
     {
+        /* BASIC QUERY */
         // Pre: 
         // Post: 
         [Pure]
-        public int GetGuesses()
+        public int GetGuessCount()
         {
             Contract.Ensures(Contract.Result<int>() >= 0);
             return default(int);
@@ -35,24 +37,24 @@ namespace WordGuesser_Logic
 
         // Pre:
         // Post: 
-        public void AddGuess()
+        public void PutGuess()
         {
-            Contract.Ensures(Contract.OldValue(GetGuesses()) == GetGuesses() + 1);
+            Contract.Ensures(GetGuessCount() == Contract.OldValue(GetGuessCount()) + 1);
         }
 
         // Pre:
         // Post:
         public void RemoveGuess()
         {
-            Contract.Requires(GetGuesses() > 0);
-            Contract.Ensures(Contract.OldValue(GetGuesses()) == GetGuesses()- 1);
+            Contract.Requires(GetGuessCount() > 0);
+            Contract.Ensures(GetGuessCount() == Contract.OldValue(GetGuessCount()) + 1);
         }
 
         // Pre:
         // Post:
         public void ResetGuessCount()
         {
-            Contract.Ensures(GetGuesses()> 0);
+            Contract.Ensures(GetGuessCount() > 0);
         }
     }
 
@@ -61,12 +63,12 @@ namespace WordGuesser_Logic
     {
         private int guesses = 5;
 
-        public int GetGuesses()
+        public int GetGuessCount()
         {
             return guesses;
         }
 
-        public void AddGuess()
+        public void PutGuess()
         {
             guesses++;
         }
