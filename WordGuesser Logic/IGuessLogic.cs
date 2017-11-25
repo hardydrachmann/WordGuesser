@@ -35,7 +35,7 @@ namespace WordGuesser_Logic
 
         /* BASIC QUERY */
         // Pre: 
-        // Post: 
+        // Post: Return value is greater or equals 0
         [Pure]
         public int GetGuessCount()
         {
@@ -44,22 +44,22 @@ namespace WordGuesser_Logic
         }
 
         // Pre:
-        // Post: 
+        // Post: Increment guess count by 1
         public void IncrementGuess()
         {
             Contract.Ensures(GetGuessCount() == Contract.OldValue(GetGuessCount()) + 1);
         }
 
-        // Pre:
-        // Post:
+        // Pre: GetGuessCount > 0
+        // Post: Decrement guess count by 1
         public void DecrementGuess()
         {
             Contract.Requires(GetGuessCount() > 0);
             Contract.Ensures(GetGuessCount() == Contract.OldValue(GetGuessCount()) - 1);
         }
 
-        // Pre:
-        // Post:
+        // Pre: 
+        // Post: 
         public void ResetGuessCount()
         {
             Contract.Ensures(GetGuessCount() > 0);

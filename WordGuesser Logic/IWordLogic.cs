@@ -26,8 +26,8 @@ namespace WordGuesser_Logic
     [ContractClassFor(typeof(IWordLogic))]
     internal abstract class WordLogicContract : IWordLogic
     {
-        // Pre:
-        // Post:
+        // Pre: words length > 1
+        // Post: 
         [Pure]
         public string GetRandomWord(string[] words)
         {
@@ -40,7 +40,7 @@ namespace WordGuesser_Logic
         }
 
         // Pre: True
-        // Post: Result = 
+        // Post: 
         [Pure]
         public bool EvaluateWord(string word, string guess)
         {
@@ -52,7 +52,7 @@ namespace WordGuesser_Logic
         }
 
         // Pre: True
-        // Post:
+        // Post: 
         [Pure]
         public bool EvaluateLetter(string word, string blanks, string guess)
         {
