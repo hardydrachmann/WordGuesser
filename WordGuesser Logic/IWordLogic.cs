@@ -22,10 +22,19 @@ namespace WordGuesser_Logic
         bool EvaluateWord(string word, string guess);
     }
 
+
+
+
+
     // Contract Class - Formal specification
     [ContractClassFor(typeof(IWordLogic))]
     internal abstract class WordLogicContract : IWordLogic
     {
+
+
+        /* ------------------------------------------------------------------------- BASIC QUERIES --- */
+
+        
         // Pre:
         // Post:
         [Pure]
@@ -65,6 +74,10 @@ namespace WordGuesser_Logic
             return default(bool);
         }
     }
+
+
+
+
 
     // Implementation Class
     public class MockWordLogic : IWordLogic

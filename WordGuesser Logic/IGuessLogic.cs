@@ -22,18 +22,19 @@ namespace WordGuesser_Logic
         void ResetGuessCount();
     }
 
+
+
+
+
     // Contract Class - Formal specification
     [ContractClassFor(typeof(IGuessLogic))]
     internal abstract class GuessLogicContract : IGuessLogic
     {
-        public IGuessLogic Initialize(int guessLimit)
-        {
-            Contract.Requires(guessLimit > 0);
-            Contract.Ensures(GetGuessCount() == guessLimit);
-            return default(IGuessLogic);
-        }
 
-        /* BASIC QUERY */
+
+        /* --------------------------------------------------------------------------- BASIC QUERY --- */
+
+        
         // Pre: 
         // Post: 
         [Pure]
@@ -43,6 +44,19 @@ namespace WordGuesser_Logic
             return default(int);
         }
 
+
+        /* ------------------------------------------------------------------------------ COMMANDS --- */
+
+        
+        // Pre: 
+        // Post: 
+        public IGuessLogic Initialize(int guessLimit)
+        {
+            Contract.Requires(guessLimit > 0);
+            Contract.Ensures(GetGuessCount() == guessLimit);
+            return default(IGuessLogic);
+        }
+        
         // Pre:
         // Post: 
         public void IncrementGuess()
@@ -65,6 +79,10 @@ namespace WordGuesser_Logic
             Contract.Ensures(GetGuessCount() > 0);
         }
     }
+
+
+
+
 
     // Implementation Class
     public class MockGuessLogic : IGuessLogic
