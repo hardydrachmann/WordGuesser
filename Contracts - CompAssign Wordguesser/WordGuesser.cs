@@ -11,10 +11,12 @@ namespace Contracts___CompAssign_Wordguesser
         private IGuessLogic guessLogic;
         private IWordLogic wordLogic;
 
+        private readonly string[] words = new string[] { "hest", "paris", "fasan", "ugle", "gun", "kaffe", "zorro", "hammer", "london", "radio" };
+        private const int guessLimit = 5;
 
         public WordGuesser()
         {
-            guessLogic = new MockGuessLogic();
+            guessLogic = new MockGuessLogic().Initialize(guessLimit);
             wordLogic = new MockWordLogic();
         }
 
@@ -28,10 +30,10 @@ namespace Contracts___CompAssign_Wordguesser
             string input = "";
             do
             {
-                string word = wordLogic.GetRandomWord();
+                string word = wordLogic.GetRandomWord(words);
                 playRound(word);
                 Console.WriteLine("\nType 'q' to quit or press 'Enter' to play");
-                input = Console.ReadLine().ToLower();
+                input = Console.ReadLine()?.ToLower();
                 Console.Clear();
             } while (!input.StartsWith("q"));
         }
@@ -40,21 +42,21 @@ namespace Contracts___CompAssign_Wordguesser
         {
             string blanks = getBlanks(word);
             Console.WriteLine("Enter word or character from word to guess: " + blanks + " " + word + "\n");
-            while (guessLogic.GetGuesses() > 0)
+            while (guessLogic.GetGuessCount() > 0)
             {
                 Console.Write("> ");
-                string guess = Console.ReadLine().ToLower();
+                string guess = Console.ReadLine()?.ToLower();
                 bool correct;
                 if(guess.Length > 1)
-                    correct = wordLogic.EvaluateWord(word, blanks, guess);
+                    correct = wordLogic.EvaluateWord(word, guess);
                 else 
                     correct = wordLogic.EvaluateLetter(word, blanks, guess);
                 if (correct)
                 {
                     blanks = substituteLetters(word, blanks, guess);
-                    guessLogic.AddGuess();
+                    guessLogic.IncrementGuessCount();
                     string guessProgress = blanks.Replace(" ", "");
-                    bool hasWon = wordLogic.EvaluateWord(word, blanks, guessProgress);
+                    bool hasWon = wordLogic.EvaluateWord(word, guessProgress);
                     if (hasWon)
                     {
                         Console.Clear();
@@ -71,9 +73,9 @@ namespace Contracts___CompAssign_Wordguesser
                 {
                     Console.Clear();
                     Console.Write("Wrong!");
-                    guessLogic.RemoveGuess();
+                    guessLogic.DecrementGuessCount();
                 }
-                Console.WriteLine(" Guesses left: " + guessLogic.GetGuesses());
+                Console.WriteLine(" Guesses left: " + guessLogic.GetGuessCount());
                 Console.WriteLine(blanks + "\n");
             }
             guessLogic.ResetGuessCount();

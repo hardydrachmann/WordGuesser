@@ -7,40 +7,52 @@ using System.Threading.Tasks;
 
 namespace WordGuesser_Logic
 {
-    // Interface
+    // Interface - Informal specification
     [ContractClass(typeof(WordLogicContract))]
     public interface IWordLogic
     {
-        string GetRandomWord();
 
+        // Return random string of randomWords
+        string GetRandomWord(string[] words);
+
+        // Return true if guess contain word and blanks doesn't contains guess
         bool EvaluateLetter(string word, string blanks, string guess);
 
-        bool EvaluateWord(string word, string blanks, string guess);
+        // Return true if guess is equal word
+        bool EvaluateWord(string word, string guess);
     }
 
-    // Contract Class
+    // Contract Class - Formal specification
     [ContractClassFor(typeof(IWordLogic))]
     internal abstract class WordLogicContract : IWordLogic
     {
+        // Pre:
+        // Post:
         [Pure]
-        public string GetRandomWord()
+        public string GetRandomWord(string[] words)
         {
+            Contract.Requires(words.Length > 1);
             Contract.Ensures(!string.IsNullOrWhiteSpace(Contract.Result<string>()));
+            Contract.Ensures(Contract.Result<string>().Length > 1);
             Contract.Ensures(!Contract.Result<string>().Contains(" "));
+            Contract.Ensures(words.Contains(Contract.Result<string>()));
             return default(string);
         }
 
+        // Pre: True
+        // Post: Result = 
         [Pure]
-        public bool EvaluateWord(string word, string blanks, string guess)
+        public bool EvaluateWord(string word, string guess)
         {
             Contract.Requires(!string.IsNullOrWhiteSpace(guess));
-            Contract.Requires(!string.IsNullOrWhiteSpace(blanks));
             Contract.Requires(!string.IsNullOrWhiteSpace(word));
             Contract.Requires(guess.Length > 1);
             Contract.Ensures(Contract.Result<bool>() == word.Equals(guess));
             return default(bool);
         }
 
+        // Pre: True
+        // Post:
         [Pure]
         public bool EvaluateLetter(string word, string blanks, string guess)
         {
@@ -54,31 +66,34 @@ namespace WordGuesser_Logic
         }
     }
 
+    // Implementation Class
     public class MockWordLogic : IWordLogic
     {
-        private readonly string[] randomWords = new string[] { "hest", "paris", "fasan", "ugle", "gun", "kaffe", "zorro", "hammer", "london", "radio" };
 
-        public string GetRandomWord()
+        public string GetRandomWord(string[] words)
         {
             Random rnd = new Random();
-            int index = rnd.Next(0, randomWords.Length);
-            return randomWords[index];
+            int index = rnd.Next(0, words.Length);
+
+            return words[index];
         }
 
         public bool EvaluateLetter(string word, string blanks, string guess)
         {
-            if (string.IsNullOrWhiteSpace(guess) || string.IsNullOrWhiteSpace(word))
+            if (string.IsNullOrWhiteSpace(guess) ||
+                string.IsNullOrWhiteSpace(word) ||
+                guess.Length > 1 ||
+                blanks.Contains(guess))
                 return false;
 
-            if (blanks.Contains(guess))
-                return false;
             return word.Contains(guess);
         }
 
-        public bool EvaluateWord(string word, string blanks, string guess)
+        public bool EvaluateWord(string word, string guess)
         {
             if (string.IsNullOrWhiteSpace(guess) || string.IsNullOrWhiteSpace(word))
                 return false;
+
             return word.Equals(guess);
         }
     }

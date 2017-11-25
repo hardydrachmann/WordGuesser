@@ -3,80 +3,100 @@ using System.Diagnostics.Contracts;
 
 namespace WordGuesser_Logic
 {
-    // Interface
+    // Interface - Informal specification
     [ContractClass(typeof(GuessLogicContract))]
     public interface IGuessLogic
     {
-        int GetGuesses();
+        IGuessLogic Initialize(int guessLimit);
 
-        void AddGuess();
+        // Return the guess count
+        int GetGuessCount();
 
-        void RemoveGuess();
+        // Increment guess count
+        void IncrementGuessCount();
 
+        // Decrement guess count
+        void DecrementGuessCount();
+
+        // Reset guess count
         void ResetGuessCount();
     }
 
-    // Contract Class
+    // Contract Class - Formal specification
     [ContractClassFor(typeof(IGuessLogic))]
     internal abstract class GuessLogicContract : IGuessLogic
     {
-
-        private int guesses = 0;
-        public GuessLogicContract(int guesses)
+        public IGuessLogic Initialize(int guessLimit)
         {
-            this.guesses = guesses;
+            Contract.Requires(guessLimit > 0);
+            Contract.Ensures(GetGuessCount() == guessLimit);
+            return default(IGuessLogic);
         }
 
-        [
-        Pure]
-        public int GetGuesses()
+        /* BASIC QUERY */
+        // Pre: 
+        // Post: 
+        [Pure]
+        public int GetGuessCount()
         {
             Contract.Ensures(Contract.Result<int>() >= 0);
             return default(int);
         }
 
-        public void AddGuess()
+        // Pre:
+        // Post: 
+        public void IncrementGuessCount()
         {
-            Contract.Ensures(Contract.OldValue(GetGuesses()) == GetGuesses() + 1);
+            Contract.Ensures(GetGuessCount() == Contract.OldValue(GetGuessCount()) + 1);
         }
 
-        public void RemoveGuess()
+        // Pre:
+        // Post:
+        public void DecrementGuessCount()
         {
-            Contract.Ensures(Contract.OldValue(GetGuesses()) == GetGuesses()- 1);
+            Contract.Requires(GetGuessCount() > 0);
+            Contract.Ensures(GetGuessCount() == Contract.OldValue(GetGuessCount()) - 1);
         }
 
+        // Pre:
+        // Post:
         public void ResetGuessCount()
         {
-            Contract.Ensures(GetGuesses()> 0);
+            Contract.Ensures(GetGuessCount() > 0);
         }
     }
 
+    // Implementation Class
     public class MockGuessLogic : IGuessLogic
     {
-        private int guesses = 0;
+        private int guessLimit;
+        private int guesses;
 
-        public MockGuessLogic(int guesses) {
-            this.guesses = guesses;
+        public IGuessLogic Initialize(int guessLimit)
+        {
+            this.guessLimit = guessLimit;
+            this.guesses = guessLimit;
+            return this;
         }
 
-        public int GetGuesses()
+        public int GetGuessCount()
         {
             return guesses;
         }
 
-        public void AddGuess()
+        public void IncrementGuessCount()
         {
             guesses++;
         }
 
-        public void RemoveGuess()
+        public void DecrementGuessCount()
         {
             guesses--;
         }
 
         public void ResetGuessCount()
         {
-            guesses = 5;
+            guesses = guessLimit;
         }
     }
 }

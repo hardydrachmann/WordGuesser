@@ -28,7 +28,8 @@ namespace WordGuesser_Test
         public void TestEvaluateLetter()
         {
             string word = "word";
-            string blanks = "_o__";
+            string blanks = "_ o _ _";
+
             // Returns false when invalid value.
             Assert.IsFalse(logic.EvaluateLetter(word, blanks, ""));
             Assert.IsFalse(logic.EvaluateLetter(word, blanks, " "));
@@ -36,13 +37,24 @@ namespace WordGuesser_Test
             Assert.IsFalse(logic.EvaluateLetter(word, blanks, "k"));
 
             // Returns true if matches.
-
+            Assert.IsTrue(logic.EvaluateLetter(word, blanks, "w"));
+            Assert.IsTrue(logic.EvaluateLetter(word, blanks, "r"));
+            Assert.IsTrue(logic.EvaluateLetter(word, blanks, "d"));
         }
 
         [Test()]
         public void TestEvaluateWord()
         {
+            string word = "word";
 
+            // Returns false when invalid value.
+            Assert.IsFalse(logic.EvaluateWord(word, ""));
+            Assert.IsFalse(logic.EvaluateWord(word, " "));
+            Assert.IsFalse(logic.EvaluateWord(word, "w"));
+            Assert.IsFalse(logic.EvaluateWord(word, "ord"));
+
+            // Returns true if matches.
+            Assert.IsTrue(logic.EvaluateWord(word, "word"));
         }
     }
 
@@ -51,34 +63,47 @@ namespace WordGuesser_Test
     {
         IGuessLogic logic;
 
+        const int guessLimit = 5;
+
         [SetUp()]
         public void SetUp()
         {
-            logic = new MockGuessLogic();
+            logic = new MockGuessLogic().Initialize(guessLimit);
         }
 
         [Test()]
         public void TestGetGuessCount()
         {
-
+            Assert.AreEqual(guessLimit, logic.GetGuessCount());
         }
 
         [Test()]
-        public void TestAddGuess()
+        public void TestIncrementGuess()
         {
-
+            logic.IncrementGuess();
+            Assert.AreEqual(guessLimit + 1, logic.GetGuessCount());
         }
 
         [Test()]
-        public void TestRemoveGuess()
+        public void TestDecrementGuess()
         {
-
+            logic.DecrementGuess();
+            Assert.AreEqual(guessLimit - 1, logic.GetGuessCount());
         }
 
         [Test()]
         public void TestResetGuessCount()
         {
+            // Remove all guesses from logic instance.
+            for (int i = 0; i < guessLimit; i++)
+                logic.DecrementGuess();
 
+            // Assert guesses have changed.
+            Assert.AreNotEqual(guessLimit, logic.GetGuessCount());
+
+            // Reset guess count and assert that guesses have correct value.
+            logic.ResetGuessCount();
+            Assert.AreEqual(guessLimit, logic.GetGuessCount());
         }
     }
 }
