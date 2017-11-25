@@ -54,7 +54,7 @@ namespace Contracts___CompAssign_Wordguesser
                 if (correct)
                 {
                     blanks = substituteLetters(word, blanks, guess);
-                    guessLogic.PutGuess();
+                    guessLogic.IncrementGuess();
                     string guessProgress = blanks.Replace(" ", "");
                     bool hasWon = wordLogic.EvaluateWord(word, guessProgress);
                     if (hasWon)
@@ -73,7 +73,7 @@ namespace Contracts___CompAssign_Wordguesser
                 {
                     Console.Clear();
                     Console.Write("Wrong!");
-                    guessLogic.RemoveGuess();
+                    guessLogic.DecrementGuess();
                 }
                 Console.WriteLine(" Guesses left: " + guessLogic.GetGuessCount());
                 Console.WriteLine(blanks + "\n");

@@ -9,14 +9,14 @@ namespace WordGuesser_Logic
     {
         IGuessLogic Initialize(int guessLimit);
 
-        // Return the number of guesses count
+        // Return the guess count
         int GetGuessCount();
 
-        // Add guess
-        void PutGuess();
+        // Increment guess count
+        void IncrementGuess();
 
-        // Remove guess
-        void RemoveGuess();
+        // Decrement guess count
+        void DecrementGuess();
 
         // Reset guess count
         void ResetGuessCount();
@@ -45,14 +45,14 @@ namespace WordGuesser_Logic
 
         // Pre:
         // Post: 
-        public void PutGuess()
+        public void IncrementGuess()
         {
             Contract.Ensures(GetGuessCount() == Contract.OldValue(GetGuessCount()) + 1);
         }
 
         // Pre:
         // Post:
-        public void RemoveGuess()
+        public void DecrementGuess()
         {
             Contract.Requires(GetGuessCount() > 0);
             Contract.Ensures(GetGuessCount() == Contract.OldValue(GetGuessCount()) - 1);
@@ -82,12 +82,12 @@ namespace WordGuesser_Logic
             return guesses;
         }
 
-        public void PutGuess()
+        public void IncrementGuess()
         {
             guesses++;
         }
 
-        public void RemoveGuess()
+        public void DecrementGuess()
         {
             guesses--;
         }
