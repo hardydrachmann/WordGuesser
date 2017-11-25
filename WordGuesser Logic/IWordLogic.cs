@@ -32,7 +32,7 @@ namespace WordGuesser_Logic
     {
 
 
-        /* ------------------------------------------------------------------------- BASIC QUERIES --- */
+        /* --- BASIC QUERIES --- */
 
         
         // Pre:
