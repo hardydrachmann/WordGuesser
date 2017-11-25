@@ -3,23 +3,29 @@ using System.Diagnostics.Contracts;
 
 namespace WordGuesser_Logic
 {
-    // Interface
+    // Interface - Informal specification
     [ContractClass(typeof(GuessLogicContract))]
     public interface IGuessLogic
     {
+        // Return the number of guesses count
         int GetGuesses();
 
+        // Add guess
         void AddGuess();
 
+        // Remove guess
         void RemoveGuess();
 
+        // Reset guess count
         void ResetGuessCount();
     }
 
-    // Contract Class
+    // Contract Class - Formal specification
     [ContractClassFor(typeof(IGuessLogic))]
     internal abstract class GuessLogicContract : IGuessLogic
     {
+        // Pre: 
+        // Post: 
         [Pure]
         public int GetGuesses()
         {
@@ -27,17 +33,23 @@ namespace WordGuesser_Logic
             return default(int);
         }
 
+        // Pre:
+        // Post: 
         public void AddGuess()
         {
             Contract.Ensures(Contract.OldValue(GetGuesses()) == GetGuesses() + 1);
         }
 
+        // Pre:
+        // Post:
         public void RemoveGuess()
         {
             Contract.Requires(GetGuesses() > 0);
             Contract.Ensures(Contract.OldValue(GetGuesses()) == GetGuesses()- 1);
         }
 
+        // Pre:
+        // Post:
         public void ResetGuessCount()
         {
             Contract.Ensures(GetGuesses()> 0);

@@ -7,21 +7,26 @@ using System.Threading.Tasks;
 
 namespace WordGuesser_Logic
 {
-    // Interface
+    // Interface - Informal specification
     [ContractClass(typeof(WordLogicContract))]
     public interface IWordLogic
     {
+        // Return random string of randomWords
         string GetRandomWord();
 
+        // Return true if guess contain word and blanks doesn't contains guess
         bool EvaluateLetter(string word, string blanks, string guess);
 
-        bool EvaluateWord(string word, string blanks, string guess);
+        // Return true if guess is equal word
+        bool EvaluateWord(string word, string guess);
     }
 
-    // Contract Class
+    // Contract Class - Formal specification
     [ContractClassFor(typeof(IWordLogic))]
     internal abstract class WordLogicContract : IWordLogic
     {
+        // Pre:
+        // Post:
         [Pure]
         public string GetRandomWord()
         {
@@ -31,17 +36,20 @@ namespace WordGuesser_Logic
             return default(string);
         }
 
+        // Pre: True
+        // Post: Result = 
         [Pure]
-        public bool EvaluateWord(string word, string blanks, string guess)
+        public bool EvaluateWord(string word, string guess)
         {
             Contract.Requires(!string.IsNullOrWhiteSpace(guess));
-            Contract.Requires(!string.IsNullOrWhiteSpace(blanks));
             Contract.Requires(!string.IsNullOrWhiteSpace(word));
             Contract.Requires(guess.Length > 1);
             Contract.Ensures(Contract.Result<bool>() == word.Equals(guess));
             return default(bool);
         }
 
+        // Pre: True
+        // Post:
         [Pure]
         public bool EvaluateLetter(string word, string blanks, string guess)
         {
@@ -79,7 +87,7 @@ namespace WordGuesser_Logic
             return word.Contains(guess);
         }
 
-        public bool EvaluateWord(string word, string blanks, string guess)
+        public bool EvaluateWord(string word, string guess)
         {
             if (string.IsNullOrWhiteSpace(guess) || string.IsNullOrWhiteSpace(word))
                 return false;

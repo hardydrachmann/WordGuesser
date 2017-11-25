@@ -10,6 +10,7 @@ namespace Contracts___CompAssign_Wordguesser
     {
         private IGuessLogic guessLogic;
         private IWordLogic wordLogic;
+        private int guesses = 5;
 
 
         public WordGuesser()
@@ -46,7 +47,7 @@ namespace Contracts___CompAssign_Wordguesser
                 string guess = Console.ReadLine().ToLower();
                 bool correct;
                 if(guess.Length > 1)
-                    correct = wordLogic.EvaluateWord(word, blanks, guess);
+                    correct = wordLogic.EvaluateWord(word, guess);
                 else 
                     correct = wordLogic.EvaluateLetter(word, blanks, guess);
                 if (correct)
@@ -54,7 +55,7 @@ namespace Contracts___CompAssign_Wordguesser
                     blanks = substituteLetters(word, blanks, guess);
                     guessLogic.AddGuess();
                     string guessProgress = blanks.Replace(" ", "");
-                    bool hasWon = wordLogic.EvaluateWord(word, blanks, guessProgress);
+                    bool hasWon = wordLogic.EvaluateWord(word, guessProgress);
                     if (hasWon)
                     {
                         Console.Clear();
