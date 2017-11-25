@@ -7,6 +7,7 @@ namespace WordGuesser_Logic
     [ContractClass(typeof(GuessLogicContract))]
     public interface IGuessLogic
     {
+        IGuessLogic Initialize(int guessLimit);
 
         // Return the number of guesses count
         int GetGuessCount();
@@ -25,6 +26,13 @@ namespace WordGuesser_Logic
     [ContractClassFor(typeof(IGuessLogic))]
     internal abstract class GuessLogicContract : IGuessLogic
     {
+        public IGuessLogic Initialize(int guessLimit)
+        {
+            Contract.Requires(guessLimit > 0);
+            Contract.Ensures(GetGuessCount() == guessLimit);
+            return default(IGuessLogic);
+        }
+
         /* BASIC QUERY */
         // Pre: 
         // Post: 
@@ -47,7 +55,7 @@ namespace WordGuesser_Logic
         public void RemoveGuess()
         {
             Contract.Requires(GetGuessCount() > 0);
-            Contract.Ensures(GetGuessCount() == Contract.OldValue(GetGuessCount()) + 1);
+            Contract.Ensures(GetGuessCount() == Contract.OldValue(GetGuessCount()) - 1);
         }
 
         // Pre:
@@ -61,7 +69,13 @@ namespace WordGuesser_Logic
     // Implementation Class
     public class MockGuessLogic : IGuessLogic
     {
-        private int guesses = 5;
+        private int guesses;
+
+        public IGuessLogic Initialize(int guessLimit)
+        {
+            this.guesses = guessLimit;
+            return this;
+        }
 
         public int GetGuessCount()
         {

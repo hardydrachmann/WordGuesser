@@ -12,10 +12,11 @@ namespace Contracts___CompAssign_Wordguesser
         private IWordLogic wordLogic;
 
         private readonly string[] words = new string[] { "hest", "paris", "fasan", "ugle", "gun", "kaffe", "zorro", "hammer", "london", "radio" };
+        private const int guessLimit = 5;
 
         public WordGuesser()
         {
-            guessLogic = new MockGuessLogic();
+            guessLogic = new MockGuessLogic().Initialize(guessLimit);
             wordLogic = new MockWordLogic();
         }
 
@@ -44,7 +45,7 @@ namespace Contracts___CompAssign_Wordguesser
             while (guessLogic.GetGuessCount() > 0)
             {
                 Console.Write("> ");
-                string guess = Console.ReadLine().ToLower();
+                string guess = Console.ReadLine()?.ToLower();
                 bool correct;
                 if(guess.Length > 1)
                     correct = wordLogic.EvaluateWord(word, guess);
