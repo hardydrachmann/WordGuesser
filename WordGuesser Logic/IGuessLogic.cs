@@ -34,6 +34,7 @@ namespace WordGuesser_Logic
 
         public void RemoveGuess()
         {
+            Contract.Requires(GetGuesses() > 0);
             Contract.Ensures(Contract.OldValue(GetGuesses()) == GetGuesses()- 1);
         }
 
@@ -43,6 +44,7 @@ namespace WordGuesser_Logic
         }
     }
 
+    // Implementation Class
     public class MockGuessLogic : IGuessLogic
     {
         private int guesses = 5;

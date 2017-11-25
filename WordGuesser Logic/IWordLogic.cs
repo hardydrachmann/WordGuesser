@@ -26,6 +26,7 @@ namespace WordGuesser_Logic
         public string GetRandomWord()
         {
             Contract.Ensures(!string.IsNullOrWhiteSpace(Contract.Result<string>()));
+            Contract.Ensures(Contract.Result<string>().Length > 1);
             Contract.Ensures(!Contract.Result<string>().Contains(" "));
             return default(string);
         }
@@ -54,6 +55,7 @@ namespace WordGuesser_Logic
         }
     }
 
+    // Implementation Class
     public class MockWordLogic : IWordLogic
     {
         private readonly string[] randomWords = new string[] { "hest", "paris", "fasan", "ugle", "gun", "kaffe", "zorro", "hammer", "london", "radio" };
@@ -62,6 +64,7 @@ namespace WordGuesser_Logic
         {
             Random rnd = new Random();
             int index = rnd.Next(0, randomWords.Length);
+
             return randomWords[index];
         }
 
@@ -72,6 +75,7 @@ namespace WordGuesser_Logic
 
             if (blanks.Contains(guess))
                 return false;
+
             return word.Contains(guess);
         }
 
@@ -79,6 +83,7 @@ namespace WordGuesser_Logic
         {
             if (string.IsNullOrWhiteSpace(guess) || string.IsNullOrWhiteSpace(word))
                 return false;
+
             return word.Equals(guess);
         }
     }
