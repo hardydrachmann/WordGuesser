@@ -29,17 +29,17 @@ namespace WordGuesser_Logic
 
         public void AddGuess()
         {
-            //Contract.Ensures(Contract.OldValue(guesses) == guesses + 1);
+            Contract.Ensures(Contract.OldValue(GetGuesses()) == GetGuesses() + 1);
         }
 
         public void RemoveGuess()
         {
-            //Contract.Ensures(Contract.OldValue(guesses) == guesses - 1);
+            Contract.Ensures(Contract.OldValue(GetGuesses()) == GetGuesses()- 1);
         }
 
         public void ResetGuessCount()
         {
-            //Contract.Ensures(guesses > 0);
+            Contract.Ensures(GetGuesses()> 0);
         }
     }
 
