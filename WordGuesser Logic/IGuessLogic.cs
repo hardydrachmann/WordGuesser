@@ -20,7 +20,15 @@ namespace WordGuesser_Logic
     [ContractClassFor(typeof(IGuessLogic))]
     internal abstract class GuessLogicContract : IGuessLogic
     {
-        [Pure]
+
+        private int guesses = 0;
+        public GuessLogicContract(int guesses)
+        {
+            this.guesses = guesses;
+        }
+
+        [
+        Pure]
         public int GetGuesses()
         {
             Contract.Ensures(Contract.Result<int>() >= 0);
@@ -45,7 +53,11 @@ namespace WordGuesser_Logic
 
     public class MockGuessLogic : IGuessLogic
     {
-        private int guesses = 5;
+        private int guesses = 0;
+
+        public MockGuessLogic(int guesses) {
+            this.guesses = guesses;
+        }
 
         public int GetGuesses()
         {

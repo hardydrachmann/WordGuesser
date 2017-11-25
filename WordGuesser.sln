@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordGuesser Console", "Cont
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordGuesser Logic", "WordGuesser Logic\WordGuesser Logic.csproj", "{64B4933D-16CB-4A56-AB3E-196AF29FE5E9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordGuesser_Test", "WordGuesser_Test\WordGuesser_Test.csproj", "{10DE84CF-D89B-46F1-954C-17EAE9FD3A4A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{64B4933D-16CB-4A56-AB3E-196AF29FE5E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64B4933D-16CB-4A56-AB3E-196AF29FE5E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64B4933D-16CB-4A56-AB3E-196AF29FE5E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10DE84CF-D89B-46F1-954C-17EAE9FD3A4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10DE84CF-D89B-46F1-954C-17EAE9FD3A4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10DE84CF-D89B-46F1-954C-17EAE9FD3A4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10DE84CF-D89B-46F1-954C-17EAE9FD3A4A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
