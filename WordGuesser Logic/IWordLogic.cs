@@ -12,7 +12,7 @@ namespace WordGuesser_Logic
     public interface IWordLogic
     {
 
-        // Return random string of randomWords
+        // Return a random string of randomWords
         string GetRandomWord(string[] words);
 
         // Return true if guess contain word and blanks doesn't contains guess
@@ -22,12 +22,18 @@ namespace WordGuesser_Logic
         bool EvaluateWord(string word, string guess);
     }
 
+
+
+
+
     // Contract Class - Formal specification
     [ContractClassFor(typeof(IWordLogic))]
     internal abstract class WordLogicContract : IWordLogic
     {
+        /* --- BASIC QUERIES --- */
+        
         // Pre: words length > 1
-        // Post: 
+        // Post: return value are greater than 1 and contains no whitespace and contains a valid value
         [Pure]
         public string GetRandomWord(string[] words)
         {
@@ -66,6 +72,10 @@ namespace WordGuesser_Logic
         }
     }
 
+
+
+
+
     // Implementation Class
     public class MockWordLogic : IWordLogic
     {
@@ -80,10 +90,10 @@ namespace WordGuesser_Logic
 
         public bool EvaluateLetter(string word, string blanks, string guess)
         {
-            if (string.IsNullOrWhiteSpace(guess) || string.IsNullOrWhiteSpace(word))
-                return false;
-
-            if (blanks.Contains(guess))
+            if (string.IsNullOrWhiteSpace(guess) ||
+                string.IsNullOrWhiteSpace(word) ||
+                guess.Length > 1 ||
+                blanks.Contains(guess))
                 return false;
 
             return word.Contains(guess);
