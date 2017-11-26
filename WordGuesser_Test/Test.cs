@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using WordGuesser_Logic;
+using WordGuesser_Mock;
 
 namespace WordGuesser_Test
 {
@@ -29,17 +30,10 @@ namespace WordGuesser_Test
             string word = "word";
             string blanks = "_ o _ _";
 
-            // Returns a Contract Exception when invalid value.
-            Assert.That(() => logic.EvaluateLetter(word, blanks, ""),
-                Throws.Exception.With.Property("Message").EqualTo("Precondition failed: !string.IsNullOrWhiteSpace(guess)"));
-
-            Assert.That(() => logic.EvaluateLetter(word, blanks, " "),
-                Throws.Exception.With.Property("Message").EqualTo("Precondition failed: !string.IsNullOrWhiteSpace(guess)"));
-
-            Assert.That(() => logic.EvaluateLetter(word, blanks, "rd"),
-                Throws.Exception.With.Property("Message").EqualTo("Precondition failed: guess.Length == 1"));
-
             // Returns false when invalid value.
+            Assert.IsFalse(logic.EvaluateLetter(word, blanks, ""));
+            Assert.IsFalse(logic.EvaluateLetter(word, blanks, " "));
+            Assert.IsFalse(logic.EvaluateLetter(word, blanks, "rd"));
             Assert.IsFalse(logic.EvaluateLetter(word, blanks, "k"));
 
             // Returns true if matches.
@@ -53,17 +47,10 @@ namespace WordGuesser_Test
         {
             string word = "word";
 
-            // Returns a Contract Exception when invalid value.
-            Assert.That(() => logic.EvaluateWord(word, ""),
-                Throws.Exception.With.Property("Message").EqualTo("Precondition failed: !string.IsNullOrWhiteSpace(guess)"));
-
-            Assert.That(() => logic.EvaluateWord(word, " "),
-                Throws.Exception.With.Property("Message").EqualTo("Precondition failed: !string.IsNullOrWhiteSpace(guess)"));
-
-            Assert.That(() => logic.EvaluateWord(word, "w"),
-                Throws.Exception.With.Property("Message").EqualTo("Precondition failed: guess.Length > 1"));
-
             // Returns false when invalid value.
+            Assert.IsFalse(logic.EvaluateWord(word, ""));
+            Assert.IsFalse(logic.EvaluateWord(word, " "));
+            Assert.IsFalse(logic.EvaluateWord(word, "w"));
             Assert.IsFalse(logic.EvaluateWord(word, "ord"));
 
             // Returns true if matches.

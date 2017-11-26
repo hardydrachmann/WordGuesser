@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using WordGuesser_Logic;
+using WordGuesser_Mock;
 
 namespace Contracts___CompAssign_Wordguesser
 {

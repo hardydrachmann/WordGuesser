@@ -35,6 +35,10 @@
     <Compile Include="Test.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\WordGuesser Logic\WordGuesser_Logic.csproj">
+      <Project>{64B4933D-16CB-4A56-AB3E-196AF29FE5E9}</Project>
+      <Name>WordGuesser_Logic</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WordGuesser_Mock\WordGuesser_Mock.csproj">
       <Project>{DB021038-F9C2-472D-A95E-3DEF404B0741}</Project>
       <Name>WordGuesser_Mock</Name>

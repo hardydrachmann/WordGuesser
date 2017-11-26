@@ -51,9 +51,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WordGuesser Logic\WordGuesser Logic.csproj">
+    <ProjectReference Include="..\WordGuesser Logic\WordGuesser_Logic.csproj">
       <Project>{64B4933D-16CB-4A56-AB3E-196AF29FE5E9}</Project>
-      <Name>WordGuesser Logic</Name>
+      <Name>WordGuesser_Logic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WordGuesser_Mock\WordGuesser_Mock.csproj">
+      <Project>{4E30C729-B0CA-4BD6-A45E-F9A60D315E77}</Project>
+      <Name>WordGuesser_Mock</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
