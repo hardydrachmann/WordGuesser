@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordGuesser Logic", "WordGu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordGuesser_Test", "WordGuesser_Test\WordGuesser_Test.csproj", "{10DE84CF-D89B-46F1-954C-17EAE9FD3A4A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WordGuesser_Mock", "WordGuesser_Mock\WordGuesser_Mock.csproj", "{DB021038-F9C2-472D-A95E-3DEF404B0741}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{10DE84CF-D89B-46F1-954C-17EAE9FD3A4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10DE84CF-D89B-46F1-954C-17EAE9FD3A4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{10DE84CF-D89B-46F1-954C-17EAE9FD3A4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB021038-F9C2-472D-A95E-3DEF404B0741}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB021038-F9C2-472D-A95E-3DEF404B0741}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB021038-F9C2-472D-A95E-3DEF404B0741}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB021038-F9C2-472D-A95E-3DEF404B0741}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

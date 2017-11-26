@@ -22,10 +22,6 @@ namespace WordGuesser_Logic
         void ResetGuessCount();
     }
 
-
-
-
-
     // Contract Class - Formal specification
     [ContractClassFor(typeof(IGuessLogic))]
     internal abstract class GuessLogicContract : IGuessLogic
@@ -47,8 +43,8 @@ namespace WordGuesser_Logic
         /* --- COMMANDS --- */
         
 
-        // Pre: GuessLimit > 0
-        // Post: 
+        // Pre: GuessLimit argument must be greater than 0.
+        // Post: Getting guess count must return the initialized value.
         public IGuessLogic Initialize(int guessLimit)
         {
             Contract.Requires(guessLimit > 0);
@@ -63,7 +59,7 @@ namespace WordGuesser_Logic
             Contract.Ensures(GetGuessCount() == Contract.OldValue(GetGuessCount()) + 1);
         }
 
-        // Pre: guess > 0
+        // Pre: Guess count must be greater than 0.
         // Post: Guess count has been decremented by 1
         public void DecrementGuessCount()
         {
@@ -71,49 +67,11 @@ namespace WordGuesser_Logic
             Contract.Ensures(GetGuessCount() == Contract.OldValue(GetGuessCount()) - 1);
         }
         
-        // Post: Guess count are reset
+        // Post: Guess count is greater than 0.
         public void ResetGuessCount()
         {
             Contract.Ensures(GetGuessCount() > 0);
         }
         
-    }
-
-
-
-
-
-    // Implementation Class
-    public class MockGuessLogic : IGuessLogic
-    {
-        private int guessLimit;
-        private int guesses;
-
-        public IGuessLogic Initialize(int guessLimit)
-        {
-            this.guessLimit = guessLimit;
-            this.guesses = guessLimit;
-            return this;
-        }
-
-        public int GetGuessCount()
-        {
-            return guesses;
-        }
-
-        public void IncrementGuessCount()
-        {
-            guesses++;
-        }
-
-        public void DecrementGuessCount()
-        {
-            guesses--;
-        }
-
-        public void ResetGuessCount()
-        {
-            guesses = guessLimit;
-        }
     }
 }

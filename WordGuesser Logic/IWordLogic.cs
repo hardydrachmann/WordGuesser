@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.Contracts;
+﻿using System.Diagnostics.Contracts;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace WordGuesser_Logic
 {
@@ -11,7 +7,6 @@ namespace WordGuesser_Logic
     [ContractClass(typeof(WordLogicContract))]
     public interface IWordLogic
     {
-
         // Return a random string of randomWords
         string GetRandomWord(string[] words);
 
@@ -22,18 +17,14 @@ namespace WordGuesser_Logic
         bool EvaluateWord(string word, string guess);
     }
 
-
-
-
-
     // Contract Class - Formal specification
     [ContractClassFor(typeof(IWordLogic))]
     internal abstract class WordLogicContract : IWordLogic
     {
         /* --- BASIC QUERIES --- */
         
-        // Pre: words length > 1
-        // Post: return value are greater than 1 and contains no whitespace and contains a valid value
+        // Pre: Array argument has a length greater than 1
+        // Post: Return value is a string with a length greater than 1 which contains no whitespace
         [Pure]
         public string GetRandomWord(string[] words)
         {
@@ -45,8 +36,8 @@ namespace WordGuesser_Logic
             return default(string);
         }
 
-        // Pre: True
-        // Post: 
+        // Pre: Arguments must not be empty strings and the length of the guess argument must be greater than one.
+        // Post: The return value must be a boolean reflecting whether the arguments are equal - or false if preconditions are violated.
         [Pure]
         public bool EvaluateWord(string word, string guess)
         {
@@ -57,8 +48,8 @@ namespace WordGuesser_Logic
             return default(bool);
         }
 
-        // Pre: True
-        // Post: 
+        // Pre: Arguments must not be empty strings and the length of the guess argument must be equal to one - the guess argument must also not be contained in the blanks argument.
+        // Post: The return value must be a boolean reflecting whether the guess argument is contained within the word argument or false if preconditions are violated.
         [Pure]
         public bool EvaluateLetter(string word, string blanks, string guess)
         {
@@ -69,42 +60,6 @@ namespace WordGuesser_Logic
             Contract.Requires(guess.Length == 1);
             Contract.Ensures(Contract.Result<bool>() == word.Contains(guess));
             return default(bool);
-        }
-    }
-
-
-
-
-
-    // Implementation Class
-    public class MockWordLogic : IWordLogic
-    {
-
-        public string GetRandomWord(string[] words)
-        {
-            Random rnd = new Random();
-            int index = rnd.Next(0, words.Length);
-
-            return words[index];
-        }
-
-        public bool EvaluateLetter(string word, string blanks, string guess)
-        {
-            if (string.IsNullOrWhiteSpace(guess) ||
-                string.IsNullOrWhiteSpace(word) ||
-                guess.Length > 1 ||
-                blanks.Contains(guess))
-                return false;
-
-            return word.Contains(guess);
-        }
-
-        public bool EvaluateWord(string word, string guess)
-        {
-            if (string.IsNullOrWhiteSpace(guess) || string.IsNullOrWhiteSpace(word))
-                return false;
-
-            return word.Equals(guess);
         }
     }
 }
